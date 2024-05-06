@@ -81,7 +81,7 @@ class Window {
         const infoDiv = document.createElement('div');
         infoDiv.className = 'info';
         infoDiv.textContent = this.description;
-        infoDiv.style.cssText = `display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.9); padding: 10px; box-sizing: border-box; font-size: 18px; font-family: Helvetica, sans-serif;`;
+        infoDiv.style.cssText = `display: none; position: absolute; top: 00; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 1); padding: 10px; box-sizing: border-box; font-size: 24px; font-family:'Courier New', Courier, monospace`;
         return infoDiv;
     }
 
