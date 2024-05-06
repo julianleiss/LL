@@ -1,129 +1,54 @@
-// Archivo: ./mundillos/mundillo6.js
+// Archivo: ./mundillos/mundilloOrdenarColores.js
 export default function setupMundillo6(p) {
-    let palabras = ["enchastre", "futuro", "ciudad", "noche", "musica"];
-    let palabrasObj = [];
-    let dragging = null; // Objeto que está siendo arrastrado
-    let inputUsuario;
-    let botonEnviar;
-    let textoFinal = '';
-    let tutorialVisible = true;
+    let colors = [];
+    let dragging = null; // Bloque que estamos arrastrando
+    let offsetX, offsetY; // Para ajustar la posición del arrastre
 
-    class Palabra {
-        constructor(palabra, x, y) {
-            this.palabra = palabra;
-            this.x = x;
-            this.y = y;
-            this.draggable = false;
-        }
+    // Colores específicos en formato hexadecimal
+    let colorPalette = ['#FCFC00', '#00FF00', '#0000FF', '#FA00FF'];
 
-        display() {
-            p.fill(0);
-            if (this.draggable) {
-                p.stroke(150); // Resaltar si es arrastrable
-            } else {
-                p.stroke(0);
-            }
-            p.text(this.palabra, this.x, this.y);
-        }
-
-        checkMouse() {
-            if (p.mouseX >= this.x && p.mouseX <= this.x + p.textWidth(this.palabra) &&
-                p.mouseY >= this.y - 10 && p.mouseY <= this.y + 10) {
-                this.draggable = true;
-                if (p.mouseIsPressed && !dragging) {
-                    dragging = this;
-                }
-            } else {
-                this.draggable = false;
-            }
-        }
-
-        move(x, y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-    p.setup = function () {
+    p.setup = function() {
         p.createCanvas(p.windowWidth, p.windowHeight);
-        p.background(255);
-        p.textSize(16);
-
-        inputUsuario = p.createInput();
-        inputUsuario.position(50, p.windowHeight - 40);
-        
-        botonEnviar = p.createButton('Agregar línea');
-        botonEnviar.position(inputUsuario.x + inputUsuario.width, p.windowHeight - 40);
-        botonEnviar.mousePressed(agregarLinea);
-
-        palabras.forEach((palabra, index) => {
-            palabrasObj.push(new Palabra(palabra, 50, 80 + index * 20));
-        });
-
-        let botonGuardar = p.createButton('Guardar Poema');
-        botonGuardar.position(50, p.windowHeight - 80);
-        botonGuardar.mousePressed(guardarPoema);
-
-        let botonTutorial = p.createButton('Mostrar/Ocultar Ayuda');
-        botonTutorial.position(160, p.windowHeight - 80);
-        botonTutorial.mousePressed(() => tutorialVisible = !tutorialVisible);
+        generateColors();
     };
 
-    p.draw = function () {
-        if (p.mouseIsPressed && !inputUsuario.elt.matches(':focus')) {
-            p.stroke(0);
-            p.strokeWeight(4);
-            p.line(p.pmouseX, p.pmouseY, p.mouseX, p.mouseY);
-        }
-
-        if (tutorialVisible) {
-            mostrarTutorial();
-        }
-
-        palabrasObj.forEach(palabra => {
-            palabra.display();
-            palabra.checkMouse();
-        });
-
-        if (dragging && !p.mouseIsPressed) {
-            agregarLineaDesdeDrag();
-            dragging = null;
+    p.draw = function() {
+        p.background('#EBE9D8');
+        for (let colorBlock of colors) {
+            p.fill(colorBlock.color);
+            p.rect(colorBlock.x, colorBlock.y, 100, 100);
         }
     };
 
-    function agregarLineaDesdeDrag() {
-        textoFinal += dragging.palabra + ' ';
-        mostrarTextoUsuario();
-    }
-
-    function agregarLinea() {
-        let linea = inputUsuario.value();
-        textoFinal += linea + ' ';
-        inputUsuario.value('');
-        mostrarTextoUsuario();
-        p.fill(0, 255, 0);
-        p.text("¡Palabra añadida!", 50, p.windowHeight - 60);
-        setTimeout(() => p.background(255), 2000);
-    }
-
-    function guardarPoema() {
-        p.saveCanvas('miPoema', 'jpg');
-    }
-
-    function mostrarTextoUsuario() {
-        p.fill(0);
-        p.text("Tu poema:", 50, 200);
-        p.text(textoFinal, 50, 230);
-    }
-
-    function mostrarTutorial() {
-        p.fill(255, 255, 0);
-        p.text("Arrastra las palabras hacia el área de texto o escribe y presiona 'Agregar línea'.", 50, p.windowHeight - 120);
-    }
-
-    p.windowResized = function () {
-        p.resizeCanvas(p.windowWidth, p.windowHeight);
-        inputUsuario.position(50, p.windowHeight - 40);
-        botonEnviar.position(inputUsuario.x + inputUsuario.width, p.windowHeight - 40);
+    p.mousePressed = function() {
+        for (let colorBlock of colors) {
+            if (p.mouseX >= colorBlock.x && p.mouseX <= colorBlock.x + 100 &&
+                p.mouseY >= colorBlock.y && p.mouseY <= colorBlock.y + 100) {
+                dragging = colorBlock;
+                offsetX = p.mouseX - colorBlock.x;
+                offsetY = p.mouseY - colorBlock.y;
+                return;
+            }
+        }
     };
+
+    p.mouseDragged = function() {
+        if (dragging) {
+            dragging.x = p.mouseX - offsetX;
+            dragging.y = p.mouseY - offsetY;
+        }
+    };
+
+    p.mouseReleased = function() {
+        dragging = null;
+    };
+
+    function generateColors() {
+        for (let i = 0; i < 10; i++) {
+            let color = p.random(colorPalette); // Selecciona un color aleatorio de la paleta
+            let x = p.random(p.width - 100);
+            let y = p.random(p.height - 100);
+            colors.push({ color, x, y });
+        }
+    }
 }

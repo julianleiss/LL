@@ -16,14 +16,14 @@ class Window {
 
         // Configuración específica de cada mundillo
         const config = {
-            '0001': { width: 500, height: 570, description: "hola hola" },
-            '0002': { width: 550, height: 500, description: "asshdgsd" },
-            '0003': { width: 400, height: 400, description: "hkasgdfas7" },
-            '0004': { width: 550, height: 550, description: "asjdh72" },
-            '0005': { width: 550, height: 550, description: "askhdfg23" },
-            '0006': { width: 500, height: 500, description: "sg326wh" },
-            '0007': { width: 600, height: 400, description: "si." },
-            '0008': { width: 400, height: 400, description: "mega ok 3000" }
+            '0001': { width: 500, height: 570, description: "Crear es enchastrarse. Sentite libre de epresarte sin errores." },
+            '0002': { width: 550, height: 500, description: "El valor de unir fragmentos para generar nuevos sentidos" },
+            '0003': { width: 400, height: 400, description: "Deja que las palabras fluyan libremente. Tenes 60 segundos para escribir todo lo que puedas, sin filtros ni pausas." },
+            '0004': { width: 550, height: 550, description: "El azar decide en este espacio. Usá la imagen que te toque como inspiración para crear algo nuevo." },
+            '0005': { width: 550, height: 550, description: "Concentra tu atención en el mantra NAM MYOHO RENGE KYO, un espacio para reflexionar y despertar el potencial creativo a través de la repetición y el enfoque." },
+            '0006': { width: 500, height: 500, description: "Organizar elementos puede ayudarte a clarificar ideas y encontrar nuevas conexiones." },
+            '0007': { width: 500, height: 500, description: "El valor del caos en el proceso creativo. Desarmar y reorganizar es el camino para hallar nuevas formas." },
+            '0008': { width: 400, height: 400, description: "El valor del caos en el proceso creativo. Desarmar y reorganizar es el camino para hallar nuevas formas." }
         };
 
         const { width, height, description } = config[this.mundilloId];
