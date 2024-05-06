@@ -23,7 +23,6 @@ class Window {
             '0005': { width: 550, height: 550, description: "Concentra tu atención en el mantra NAM MYOHO RENGE KYO, un espacio para reflexionar y despertar el potencial creativo a través de la repetición y el enfoque." },
             '0006': { width: 500, height: 500, description: "Organizar elementos puede ayudarte a clarificar ideas y encontrar nuevas conexiones." },
             '0007': { width: 500, height: 500, description: "El valor del caos en el proceso creativo. Desarmar y reorganizar es el camino para hallar nuevas formas." },
-            '0008': { width: 400, height: 400, description: "El valor del caos en el proceso creativo. Desarmar y reorganizar es el camino para hallar nuevas formas." }
         };
 
         const { width, height, description } = config[this.mundilloId];
